@@ -19,7 +19,7 @@
   <parent>
     <artifactId>tck</artifactId>
     <groupId>org.apache.tomee</groupId>
-    <version>8.0.5.TRAVELC.2</version>
+    <version>8.0.5.TRAVELC.4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>tck-common</artifactId>
@@ -79,7 +79,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <useFile>false</useFile>
-          <disableXmlReport>true</disableXmlReport>
+          <disableXmlReport>false</disableXmlReport>
         </configuration>
       </plugin>
     </plugins>

@@ -23,7 +23,7 @@
   <parent>
     <artifactId>server</artifactId>
     <groupId>org.apache.tomee</groupId>
-    <version>8.0.5.TRAVELC.2</version>
+    <version>8.0.5.TRAVELC.4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>openejb-axis</artifactId>
@@ -46,19 +46,6 @@
     </openejb.osgi.export>
   </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rat-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>src/main/resources/META-INF/schema/soap_encoding_1_1.xsd</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>

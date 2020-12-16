@@ -26,7 +26,7 @@
   <parent>
     <artifactId>server</artifactId>
     <groupId>org.apache.tomee</groupId>
-    <version>8.0.5.TRAVELC.2</version>
+    <version>8.0.5.TRAVELC.4</version>
   </parent>
 
   <artifactId>openejb-client</artifactId>
@@ -95,15 +95,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <useFile>false</useFile>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>rat-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>src/main/resources/META-INF/org.apache.openejb.client.IdentityResolver/*</exclude>
-          </excludes>
         </configuration>
       </plugin>
 

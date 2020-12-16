@@ -728,20 +728,9 @@ public class OpenEJBContextConfig extends ContextConfig {
     }
 
     private boolean isIncluded(final File root, final File clazz) {
-        File file;
-        try { // symb links
-            file = root.getCanonicalFile();
-        } catch (final IOException e) {
-            file = root;
-        }
-
-        File current;
-        try { // symb links and windows long home names
-            current = clazz.getCanonicalFile();
-        } catch (final IOException e) {
-            current = clazz;
-        }
-        while (current != null && current.exists()) {
+        File file = root;
+        File current = clazz;
+        while (current != null) {
             if (current.equals(file)) {
                 final File parent = current.getParentFile();
                 return !("classes".equals(current.getName()) && parent != null && "WEB-INF".equals(parent.getName()));

@@ -21,7 +21,7 @@
   <parent>
     <artifactId>arquillian</artifactId>
     <groupId>org.apache.tomee</groupId>
-    <version>8.0.5.TRAVELC.2</version>
+    <version>8.0.5.TRAVELC.4</version>
   </parent>
 
   <artifactId>ziplock</artifactId>
@@ -64,6 +64,12 @@
       <groupId>org.jboss.shrinkwrap</groupId>
       <artifactId>shrinkwrap-impl-base</artifactId>
       <version>${version.shrinkwrap.shrinkwrap}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.21</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

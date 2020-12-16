@@ -19,13 +19,13 @@
   <parent>
     <artifactId>tck</artifactId>
     <groupId>org.apache.tomee</groupId>
-    <version>8.0.5.TRAVELC.2</version>
+    <version>8.0.5.TRAVELC.4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>cdi-embedded</artifactId>
   <packaging>jar</packaging>
   <name>TomEE :: TCK :: CDI Embedded</name>
-  <version>8.0.5.TRAVELC.2</version>
+  <version>8.0.5.TRAVELC.4</version>
 
   <properties>
     <testngSuiteXml>src/test/resources/passing.xml</testngSuiteXml>
@@ -68,16 +68,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.taglibs</groupId>
-      <artifactId>taglibs-standard-jstlel</artifactId>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>taglibs-shade</artifactId>
+      <version>${project.version}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>*</groupId>
+          <artifactId>*</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
-    <dependency>
-      <groupId>xalan</groupId>
-      <artifactId>xalan</artifactId>
-      <scope>test</scope>
-    </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -203,7 +204,7 @@
           <forkCount>1</forkCount>
           <argLine>${surefire.argline}</argLine>
           <useFile>false</useFile>
-          <disableXmlReport>true</disableXmlReport>
+          <disableXmlReport>false</disableXmlReport>
           <suiteXmlFiles>
             <suiteXmlFile>${testngSuiteXml}</suiteXmlFile>
           </suiteXmlFiles>
