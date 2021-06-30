@@ -33,7 +33,7 @@
   <groupId>org.apache.tomee</groupId>
   <artifactId>tomee-project</artifactId>
   <packaging>pom</packaging>
-  <version>8.0.6.TRAVELC.1</version>
+  <version>8.0.8-SNAPSHOT</version>
 
   <name>Apache OpenEJB</name>
   <description>Apache OpenEJB is an open source, modular, configurable and extensible EJB Container System and EJB Server.</description>
@@ -114,10 +114,10 @@
     <geronimo-javamail_1.6_spec.version>1.0.0</geronimo-javamail_1.6_spec.version>
     <geronimo-javamail_1.6_mail.version>1.0.0</geronimo-javamail_1.6_mail.version>
 
-    <openjpa.version>3.1.2</openjpa.version>
+    <openjpa.version>3.2.0</openjpa.version>
     <openwebbeans.version>2.0.22</openwebbeans.version>
     <jcs.version>2.1</jcs.version>
-    <johnzon.version>1.2.10</johnzon.version>
+    <johnzon.version>1.2.13</johnzon.version>
     <quartz-openejb-shade.version>2.2.4</quartz-openejb-shade.version>
 
     <!-- Maven module versions -->
@@ -140,15 +140,15 @@
     <openejb.osgi.dynamic.import>${openejb.osgi.dynamic.import.pkg}</openejb.osgi.dynamic.import>
     <openejb.osgi.symbolic.name>${project.groupId}.${project.artifactId}</openejb.osgi.symbolic.name>
 
-    <batchee.version>0.6</batchee.version>
+    <batchee.version>1.0.0</batchee.version>
 
     <version.arquillian>1.1.13.Final</version.arquillian>
     <version.shrinkwrap.descriptor>2.0.0</version.shrinkwrap.descriptor>
     <version.shrinkwrap.shrinkwrap>1.2.6</version.shrinkwrap.shrinkwrap>
 
-    <tomcat.version>9.0.45</tomcat.version>
+    <tomcat.version>9.0.48</tomcat.version>
 
-    <cxf.version>3.5.0-SNAPSHOT</cxf.version>
+    <cxf.version>3.4.3</cxf.version>
     <ehcache.version>2.10.3</ehcache.version>
     <!-- used by cxf for security (replay attack) -->
     <jetty.version>7.5.3.v20111011</jetty.version>
@@ -176,14 +176,18 @@
     <commons-cli.version>1.4</commons-cli.version>
     <commons-logging.version>1.2</commons-logging.version>
     <commons-logging-api.version>1.1</commons-logging-api.version>
-    <commons-dbcp.version>2.1</commons-dbcp.version>
-    <commons-pool.version>2.3</commons-pool.version>
+    <!--
+      'QuartzPersistenceForEJBTimersTest' is unable to obtain DB connection with
+      commons-dbcp.version > 2.3.0
+    -->
+    <commons-dbcp.version>2.3.0</commons-dbcp.version>
+    <commons-pool.version>2.10.0</commons-pool.version>
     <commons-collections.version>3.2.2</commons-collections.version>
     <commons-codec.version>1.15</commons-codec.version>
     <commons-fileupload.version>1.4</commons-fileupload.version>
     <commons-discovery.version>0.5</commons-discovery.version>
     <commons-lang3.version>3.11</commons-lang3.version>
-    <commons-io.version>2.8.0</commons-io.version>
+    <commons-io.version>2.10.0</commons-io.version>
     <commons-net.version>3.7.2</commons-net.version>
 
     <bval.version>2.0.5</bval.version>
@@ -195,14 +199,14 @@
     <scannotation.version>1.0.2</scannotation.version>
     <geronimo.connector.version>3.1.4</geronimo.connector.version>
     <geronimo-osgi.version>1.1</geronimo-osgi.version>
-    <myfaces.version>2.3.8</myfaces.version>
+    <myfaces.version>2.3.9</myfaces.version>
     <mojarra.version>2.3.14</mojarra.version>
     <slf4j.version>1.7.21</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
     <log4j2.version>2.0.1</log4j2.version>
     <osgi.framework.version>4.2.0</osgi.framework.version>
     <derby.version>10.14.2.0</derby.version>
-    <version.hsqldb>2.3.2</version.hsqldb>
+    <version.hsqldb>2.5.2</version.hsqldb>
     <version.axiom>1.2.20</version.axiom>
     <version.xalan>2.7.2</version.xalan>
     <version.hibernate>5.4.10.Final</version.hibernate>
@@ -968,6 +972,10 @@
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>staging-tomee-patch-plugin</id>
+      <url>https://repository.apache.org/content/repositories/orgapachetomee-1183</url>
     </pluginRepository>
   </pluginRepositories>
   <dependencyManagement>
@@ -1987,7 +1995,7 @@
       <dependency>
         <groupId>org.apache.tomee</groupId>
         <artifactId>taglibs-shade</artifactId>
-	<version>${project.version}</version>
+	      <version>${project.version}</version>
         <exclusions>
           <exclusion>
             <groupId>*</groupId>
@@ -2011,15 +2019,9 @@
   </dependencyManagement>
 
   <distributionManagement>
-    <repository>
-      <id>apache.releases.https</id>
-      <name>Apache Release Distribution Repository</name>
-      <url>https://nexus.travelcdev.com/repository/maven-releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>apache.snapshots.https</id>
-      <name>${distMgmtSnapshotsName}</name>
-      <url>${distMgmtSnapshotsUrl}</url>
-    </snapshotRepository>
+    <site>
+      <id>openejb-website</id>
+      <url>scp://people.apache.org/www/tomee.apache.org/openejb/maven</url>
+    </site>
   </distributionManagement>
 </project>
