@@ -117,7 +117,7 @@
     <openjpa.version>3.2.0</openjpa.version>
     <openwebbeans.version>2.0.22</openwebbeans.version>
     <jcs.version>2.1</jcs.version>
-    <johnzon.version>1.2.13</johnzon.version>
+    <johnzon.version>1.2.14</johnzon.version>
     <quartz-openejb-shade.version>2.2.4</quartz-openejb-shade.version>
 
     <!-- Maven module versions -->
@@ -146,7 +146,7 @@
     <version.shrinkwrap.descriptor>2.0.0</version.shrinkwrap.descriptor>
     <version.shrinkwrap.shrinkwrap>1.2.6</version.shrinkwrap.shrinkwrap>
 
-    <tomcat.version>9.0.48</tomcat.version>
+    <tomcat.version>9.0.50</tomcat.version>
 
     <cxf.version>3.4.3</cxf.version>
     <ehcache.version>2.10.3</ehcache.version>
@@ -193,7 +193,7 @@
     <bval.version>2.0.5</bval.version>
     <org.apache.activemq.version>5.16.1</org.apache.activemq.version>
     <org.springframework.version>3.1.4.RELEASE</org.springframework.version>
-    <junit.version>4.13.1</junit.version>
+    <junit.version>4.13.2</junit.version>
     <junit.jupiter.version>5.8.0-M1</junit.jupiter.version>
     <org.apache.axis2.version>1.4.1</org.apache.axis2.version>
     <scannotation.version>1.0.2</scannotation.version>
@@ -206,7 +206,11 @@
     <log4j2.version>2.0.1</log4j2.version>
     <osgi.framework.version>4.2.0</osgi.framework.version>
     <derby.version>10.14.2.0</derby.version>
-    <version.hsqldb>2.5.2</version.hsqldb>
+    <!--
+      Some modules from the 'examples' like 'testing-security' have test failures
+      with a hsqldb version > 2.3.5
+    -->
+    <version.hsqldb>2.3.5</version.hsqldb>
     <version.axiom>1.2.20</version.axiom>
     <version.xalan>2.7.2</version.xalan>
     <version.hibernate>5.4.10.Final</version.hibernate>
