@@ -207,10 +207,11 @@
     <osgi.framework.version>4.2.0</osgi.framework.version>
     <derby.version>10.14.2.0</derby.version>
     <!--
-      Some modules from the 'examples' like 'testing-security' have test failures
-      with a hsqldb version > 2.3.5
+      'arquillian-tomee-webprofile-tests' has issues with hsqldb > 2.3.4
+      'examples' have issues with hsqldb > 2.3.5
+      'QuartzPersistenceForEJBTimersTest' cannot obtain a connection -> never timeouts
     -->
-    <version.hsqldb>2.3.5</version.hsqldb>
+    <version.hsqldb>2.3.4</version.hsqldb>
     <version.axiom>1.2.20</version.axiom>
     <version.xalan>2.7.2</version.xalan>
     <version.hibernate>5.4.10.Final</version.hibernate>
