@@ -25,7 +25,7 @@ public class JaasIdentityResolver implements IdentityResolver {
 
     @Override
     public Object getIdentity() {
-        final Subject subject = Subject.getSubject(AccessController.getContext());
+        final Subject subject = null;
         if (subject == null) {
             return null;
         }

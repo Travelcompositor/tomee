@@ -62,6 +62,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static java.util.Arrays.asList;
+import static org.apache.openejb.InterfaceType.BUSINESS_LOCALBEAN_HOME;
+import static org.apache.openejb.InterfaceType.LOCALBEAN;
 
 /**
  * This security service chooses a UUID as its token as this can be serialized
@@ -69,7 +71,7 @@ import static java.util.Arrays.asList;
  * addition openejb-core classes.
  */
 public abstract class AbstractSecurityService implements DestroyableResource, SecurityService<UUID>, ThreadContextListener,
-                                                         BasicPolicyConfiguration.RoleResolver, PolicyContextHandler {
+        BasicPolicyConfiguration.RoleResolver, PolicyContextHandler {
 
     private static final Logger LOGGER = Logger.getInstance(LogCategory.OPENEJB_SECURITY, "org.apache.openejb.util.resources");
 
@@ -335,9 +337,9 @@ public abstract class AbstractSecurityService implements DestroyableResource, Se
     @Override
     public ProtectionDomain getProtectionDomain() {
         return new ProtectionDomain(
-            new CodeSource(null, (java.security.cert.Certificate[]) null),
-            null, null,
-            getSubject().getPrincipals().toArray(new Principal[0])
+                new CodeSource(null, (java.security.cert.Certificate[]) null),
+                null, null,
+                getSubject().getPrincipals().toArray(new Principal[0])
         );
     }
 
@@ -386,6 +388,9 @@ public abstract class AbstractSecurityService implements DestroyableResource, Se
             } else {
                 securityContext = new SecurityContext(currentIdentity.getSubject());
             }
+            if ("openejb/Deployer".equals(ejbName) || type == BUSINESS_LOCALBEAN_HOME || type == LOCALBEAN) { //Travelc: dar permisos para el deploy inicial, el checkPermission da error en jdk24
+                return true;
+            }
             securityContext.acc.checkPermission(new EJBMethodPermission(ejbName, name, method));
         } catch (final AccessControlException e) {
             return false;
@@ -422,14 +427,16 @@ public abstract class AbstractSecurityService implements DestroyableResource, Se
 
         // check the system provided provider first - if for some reason it isn't loaded, load it
         final String systemPolicyProvider = SystemInstance.get().getOptions().getProperties().getProperty("javax.security.jacc.policy.provider");
-        if (systemPolicyProvider != null && Policy.getPolicy() == null) {
-            installPolicy(systemPolicyProvider);
-        }
 
-        if (! JaccProvider.Policy.class.getName().equals(Policy.getPolicy().getClass().getName())) {
-            // this should delegate to the policy installed above
-            installPolicy(JaccProvider.Policy.class.getName());
-        }
+        //Travelc: java24 compatibility
+        //if (systemPolicyProvider != null && Policy.getPolicy() == null) {
+        //    installPolicy(systemPolicyProvider);
+        //}
+
+        //if (! JaccProvider.Policy.class.getName().equals(Policy.getPolicy().getClass().getName())) {
+        //    // this should delegate to the policy installed above
+        //    installPolicy(JaccProvider.Policy.class.getName());
+        //}
     }
 
     private static void installPolicy(String policyProvider) {

@@ -31,7 +31,7 @@
   <groupId>org.apache.tomee</groupId>
   <artifactId>tomee-project</artifactId>
   <packaging>pom</packaging>
-  <version>8.0.17-SNAPSHOT</version>
+  <version>8.0.16.TRAVELC.12</version>
 
   <name>Apache OpenEJB</name>
   <description>Apache OpenEJB is an open source, modular, configurable and extensible EJB Container System and EJB Server.</description>
@@ -189,14 +189,14 @@
     <version.geronimo-javamail_1.6_spec>1.0.1</version.geronimo-javamail_1.6_spec>
 
     <!-- Jakarta EE Impl. -->
-    <tomcat.version>9.0.82</tomcat.version>
+    <tomcat.version>9.0.100</tomcat.version>
     <!-- com.sun -->
     <version.impl.saaj>1.5.3</version.impl.saaj>
     <!-- org.apache -->
     <version.activemq>5.16.7</version.activemq>
     <version.batchee>1.0.2</version.batchee>
     <version.bval>2.0.5</version.bval>
-    <version.cxf>3.5.7</version.cxf>
+    <version.cxf>3.5.10</version.cxf>
     <version.geronimo.components>3.1.5</version.geronimo.components>
     <version.geronimo-javamail_1.6_mail>1.0.1</version.geronimo-javamail_1.6_mail>
     <version.johnzon>1.2.21</version.johnzon>
@@ -625,6 +625,9 @@
     </profile>
     <profile>
       <id>no-examples</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <modules>
         <module>deps</module>
         <module>boms</module>
@@ -881,6 +884,9 @@
     </profile>
     <profile>
       <id>javadoc</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <modules>
         <module>container</module>
         <module>server</module>
@@ -907,6 +913,20 @@
               </additionalOptions>
               <doclint>none</doclint> <!-- Doclint is enabled by default in java 8+, this conf is needed disable it till a rewrite of javadoc is done (https://www.oracle.com/technetwork/java/javase/documentation/index-137868.html#format)-->
             </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
@@ -2038,7 +2058,7 @@
       <dependency>
         <groupId>org.apache.tomee</groupId>
         <artifactId>taglibs-shade</artifactId>
-	      <version>${project.version}</version>
+        <version>${project.version}</version>
         <exclusions>
           <exclusion>
             <groupId>*</groupId>
@@ -2074,10 +2094,16 @@
   </dependencyManagement>
 
   <distributionManagement>
-    <site>
-      <id>openejb-website</id>
-      <url>scp://people.apache.org/www/tomee.apache.org/openejb/maven</url>
-    </site>
+    <repository>
+      <id>apache.releases.https</id>
+      <name>Apache Release Distribution Repository</name>
+      <url>https://nexus.travelcdev.com/repository/maven-releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>apache.snapshots.https</id>
+      <name>${distMgmtSnapshotsName}</name>
+      <url>${distMgmtSnapshotsUrl}</url>
+    </snapshotRepository>
   </distributionManagement>
 </project>
 

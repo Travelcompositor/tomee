@@ -23,7 +23,7 @@
   <parent>
     <artifactId>tomee</artifactId>
     <groupId>org.apache.tomee</groupId>
-    <version>8.0.17-SNAPSHOT</version>
+    <version>8.0.16.TRAVELC.12</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -579,6 +579,7 @@
               </execution>
             </executions>
           </plugin>
+          <!--
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
@@ -598,6 +599,7 @@
               <mainClass>org.apache.tomee.bootstrap.GenerateBoms</mainClass>
             </configuration>
           </plugin>
+          -->
         </plugins>
       </build>
     </profile>
@@ -812,6 +814,7 @@
               </execution>
             </executions>
           </plugin>
+          <!--
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
@@ -831,6 +834,7 @@
               <mainClass>org.apache.tomee.bootstrap.GenerateBoms</mainClass>
             </configuration>
           </plugin>
+          -->
         </plugins>
       </build>
     </profile>
