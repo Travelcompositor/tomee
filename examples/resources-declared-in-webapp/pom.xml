@@ -23,7 +23,7 @@
   <groupId>org.superbiz</groupId>
   <artifactId>resources-declared-in-webapp</artifactId>
   <packaging>war</packaging>
-  <version>8.0.16.TRAVELC.12</version>
+  <version>8.0.16.TRAVELC.17</version>
   <name>TomEE :: Web Examples :: Resource Declared In A Webapp</name>
 
   <properties>
@@ -65,6 +65,7 @@
           <packagingExcludes>WEB-INF/web.xml</packagingExcludes>
         </configuration>
       </plugin>
+      <!--
       <plugin>
         <groupId>com.googlecode.t7mp</groupId>
         <artifactId>maven-t7-plugin</artifactId>
@@ -77,12 +78,13 @@
             <webappArtifact>
               <groupId>org.apache.tomee</groupId>
               <artifactId>openejb-tomcat-plus-webapp</artifactId>
-              <version>8.0.16.TRAVELC.12</version>
+              <version>8.0.16.TRAVELC.17</version>
               <contextPath>openejb</contextPath>
             </webappArtifact>
           </webapps>
         </configuration>
       </plugin>
+      -->
     </plugins>
   </build>
 
