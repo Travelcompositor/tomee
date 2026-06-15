@@ -31,7 +31,7 @@
   <groupId>org.apache.tomee</groupId>
   <artifactId>tomee-project</artifactId>
   <packaging>pom</packaging>
-  <version>10.1.6-SNAPSHOT</version>
+  <version>10.1.5.TRAVELC.1</version>
 
   <name>Apache TomEE</name>
   <description>Apache TomEE is a JakartaEE 10 Web Profile stack for Apache Tomcat</description>
@@ -636,6 +636,9 @@
     </profile>
     <profile>
       <id>no-examples</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <modules>
         <module>deps</module>
         <module>boms</module>
@@ -852,6 +855,9 @@
     </profile>
     <profile>
       <id>javadoc</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <modules>
         <module>container</module>
         <module>server</module>
@@ -881,6 +887,20 @@
               <source>8</source>
               <release>8</release>
             </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
@@ -1904,6 +1924,16 @@
   </dependencyManagement>
 
   <distributionManagement>
+    <repository>
+      <id>apache.releases.https</id>
+      <name>Apache Release Distribution Repository</name>
+      <url>https://nexus.travelcdev.com/repository/maven-releases</url>
+    </repository>
+    <snapshotRepository>
+      <id>apache.snapshots.https</id>
+      <name>${distMgmtSnapshotsName}</name>
+      <url>${distMgmtSnapshotsUrl}</url>
+    </snapshotRepository>
     <site>
       <id>openejb-website</id>
       <url>scp://people.apache.org/www/tomee.apache.org/openejb/maven</url>
