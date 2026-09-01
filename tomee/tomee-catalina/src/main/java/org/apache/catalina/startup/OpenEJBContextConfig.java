@@ -104,6 +104,7 @@ public class OpenEJBContextConfig extends ContextConfig {
     private TomcatWebAppBuilder.StandardContextInfo info;
     private IAnnotationFinder finder;
     private ClassLoader tempLoader;
+    private final Map<File, File> canonicalFiles = new HashMap<>();
 
     // processAnnotationXXX is called for each folder of WEB-INF
     // since we store all classes in WEB-INF we will do it only once so use this boolean to avoid multiple processing
@@ -408,7 +409,11 @@ public class OpenEJBContextConfig extends ContextConfig {
         TomcatHelper.configureJarScanner(context);
 
         // read the real config
-        super.webConfig();
+        try {
+            super.webConfig();
+        } finally {
+            canonicalFiles.clear();
+        }
 
         if (IgnoredStandardContext.class.isInstance(context)) { // no need of jsf
             return;
@@ -615,6 +620,7 @@ public class OpenEJBContextConfig extends ContextConfig {
     @Override
     protected synchronized void configureStop() {
         webInfClassesAnnotationsProcessed.clear();
+        canonicalFiles.clear();
         super.configureStop();
     }
 
@@ -728,19 +734,8 @@ public class OpenEJBContextConfig extends ContextConfig {
     }
 
     private boolean isIncluded(final File root, final File clazz) {
-        File file;
-        try { // symb links
-            file = root.getCanonicalFile();
-        } catch (final IOException e) {
-            file = root;
-        }
-
-        File current;
-        try { // symb links and windows long home names
-            current = clazz.getCanonicalFile();
-        } catch (final IOException e) {
-            current = clazz;
-        }
+        final File file = canonicalFile(root);
+        File current = canonicalFile(clazz);
         while (current != null && current.exists()) {
             if (current.equals(file)) {
                 final File parent = current.getParentFile();
@@ -752,6 +747,21 @@ public class OpenEJBContextConfig extends ContextConfig {
             }
         }
         return false;
+    }
+
+    private File canonicalFile(final File file) {
+        File canonicalFile = canonicalFiles.get(file);
+        if (canonicalFile != null) {
+            return canonicalFile;
+        }
+
+        try { // symb links and windows long home names
+            canonicalFile = file.getCanonicalFile();
+        } catch (final IOException e) {
+            canonicalFile = file;
+        }
+        canonicalFiles.put(file, canonicalFile);
+        return canonicalFile;
     }
 
     private boolean isIncludedIn(final String filePath, final File classAsFile) throws MalformedURLException {
