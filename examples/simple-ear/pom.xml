@@ -24,7 +24,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.superbiz</groupId>
   <artifactId>moviefun-ear-parent</artifactId>
-  <version>8.0.16.TRAVELC.23</version>
+  <version>8.0.16.TRAVELC.26</version>
   <packaging>pom</packaging>
   <name>TomEE :: Examples :: Simple EAR</name>
   <modules>
@@ -71,7 +71,7 @@
             <systemProperties>
               <property>
                 <name>tomee.version</name>
-                <value>8.0.16.TRAVELC.23</value>
+                <value>8.0.16.TRAVELC.26</value>
               </property>
             </systemProperties>
           </configuration>
