@@ -105,6 +105,7 @@ public class OpenEJBContextConfig extends ContextConfig {
     private IAnnotationFinder finder;
     private ClassLoader tempLoader;
     private final Map<File, File> canonicalFiles = new HashMap<>();
+    private final Map<File, Boolean> existingFiles = new HashMap<>();
 
     // processAnnotationXXX is called for each folder of WEB-INF
     // since we store all classes in WEB-INF we will do it only once so use this boolean to avoid multiple processing
@@ -413,6 +414,7 @@ public class OpenEJBContextConfig extends ContextConfig {
             super.webConfig();
         } finally {
             canonicalFiles.clear();
+            existingFiles.clear();
         }
 
         if (IgnoredStandardContext.class.isInstance(context)) { // no need of jsf
@@ -621,6 +623,7 @@ public class OpenEJBContextConfig extends ContextConfig {
     protected synchronized void configureStop() {
         webInfClassesAnnotationsProcessed.clear();
         canonicalFiles.clear();
+        existingFiles.clear();
         super.configureStop();
     }
 
@@ -736,7 +739,7 @@ public class OpenEJBContextConfig extends ContextConfig {
     private boolean isIncluded(final File root, final File clazz) {
         final File file = canonicalFile(root);
         File current = canonicalFile(clazz);
-        while (current != null && current.exists()) {
+        while (current != null && exists(current)) {
             if (current.equals(file)) {
                 final File parent = current.getParentFile();
                 return !("classes".equals(current.getName()) && parent != null && "WEB-INF".equals(parent.getName()));
@@ -762,6 +765,15 @@ public class OpenEJBContextConfig extends ContextConfig {
         }
         canonicalFiles.put(file, canonicalFile);
         return canonicalFile;
+    }
+
+    private boolean exists(final File file) {
+        Boolean exists = existingFiles.get(file);
+        if (exists == null) {
+            exists = file.exists();
+            existingFiles.put(file, exists);
+        }
+        return exists;
     }
 
     private boolean isIncludedIn(final String filePath, final File classAsFile) throws MalformedURLException {
